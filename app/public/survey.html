@@ -200,58 +200,49 @@
 
 
 <script type="text/javascript">
-// Submit click ////////////////////
-$(".endSubmit").on("click", function (event) {
-    event.preventDefault();
-    let newFriend = {
-        name: $("#nameInput").val(),
-        photo: $("#photoInput").val(),
-        scores: [
-            $("#question1").val(),
-            $("#question2").val(),
-            $("#question3").val(),
-            $("#question4").val(),
-            $("#question5").val(),
-            $("#question6").val(),
-            $("#question7").val(),
-            $("#question8").val(),
-            $("#question9").val(),
-            $("#question10").val()
-        ]
-    }
-    $.post("/api/friends", newFriend);
-   
-    // Clear the tables on the server and then empty the elements on the client
-    $.ajax({ url: "/api/friends", method: "GET" }).then(function (friendsData) {
-        //do in here with what you need to do with data
-        var bestScore = 9999;
-        var bestUser = friendsData[0];
-        for (i = 1; i < friendsData.length; i++) {
-            var userA = friendsData[0]; //setting userA to the empty friends array and collecting responses
-            var userB = friendsData[i];// setting userB to the list of possible matches
-            var score = 0;
-            for (j = 0; j < userA.scores.length; j++) {
-                // console.log("User A: " + userA.scores[j]);
-                // console.log("User B: " + userB.scores[j]);
-                console.log("Hello");
-                score += Math.abs(userA.scores[j] - userB.scores[j]);
-            }
-          
-            if (score < bestScore) {
-                bestUser = userB;
-                bestScore = score;
-                //
-            }
-            // console.log("Best User Name = " + bestUser.name + bestScore);
-     
-       }
-       
-       if (bestUser) {
-       $("#friend-name").text(bestUser.name);
-       $("#friend-img").attr("src", bestUser.photo);
-       $(".modal").modal("toggle");
-    
-       }
-    });
-});
+  // submit button click
+  $(".submit").on("click", function (e) {
+      e.preventDefault();
+      // get user input
+      // and store in variable
+      var friend = {
+          name: $("#name").val().trim(),
+          photo: $("#photo").val(),
+          scores: [
+              $("#question1").val(),
+              $("#question2").val(),
+              $("#question3").val(),
+              $("#question4").val(),
+              $("#question5").val(),
+              $("#question6").val(),
+              $("#question7").val(),
+              $("#question8").val(),
+              $("#question9").val(),
+              $("#question10").val()
+          ]
+      }
+      console.log(friend)
+      // input blank for next input
+      $("#name").val("");
+      $("#photo").val("");
+      $("#question1").val("");
+      $("#question2").val("");
+      $("#question3").val("");
+      $("#question4").val("");
+      $("#question5").val("");
+      $("#question6").val("");
+      $("#question7").val("");
+      $("#question8").val("");
+      $("#question9").val("");
+      $("#question10").val("");
+      // post userdata input 
+      // post data in friend.js file
+      $.post("/api/friends", friend, function (data) {
+          // set name and image in model
+          $("#friendname").html(data.name);
+          $("#img").attr("src", data.photo);
+          // open modal
+          $(".modal").modal();
+      })
+  })
 </script>
