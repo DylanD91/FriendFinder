@@ -1,4 +1,4 @@
-const friends = [
+const surveyArray = [
     {
         "name": "Jonah Simms",
         "photo": "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiwi_-7rInhAhVHiqwKHQfPDywQjRx6BAgBEAU&url=http%3A%2F%2Fwww.fanpop.com%2Fclubs%2Fsuperstore%2Fimages%2F39171368%2Ftitle%2F1x02-magazine-profile-jonah-photo&psig=AOvVaw3nhFZoHbtSNZzx0xcLWg2M&ust=1552917969324400",
@@ -98,3 +98,5 @@ const friends = [
 
     },
 ]
+// Export
+module.exports = surveyArray;
